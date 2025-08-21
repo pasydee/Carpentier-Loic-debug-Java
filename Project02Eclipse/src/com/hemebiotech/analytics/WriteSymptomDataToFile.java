@@ -8,21 +8,23 @@ import java.io.IOException;
 
 public class WriteSymptomDataToFile implements ISymptomWriter{
 	
-	
-	private Map<String, Integer> symptoms;
+	private String filename;
+
+	public WriteSymptomDataToFile (String filename) {
+		this.filename = filename;
+	}
 
 	@Override
 	public void writeSymptoms(Map<String, Integer> symptoms) {
-		 this.symptoms = symptoms;
 		
 		if (symptoms !=null) {
 			try {
-				FileWriter writer = new FileWriter ("result.out");
+				FileWriter writer = new FileWriter (filename);
 				
 				Set<String> cles = symptoms.keySet();	      
 				for(String cle : cles) {					
 					int count = symptoms.get(cle);			
-					writer.write( cle.getClass().getName() + ": " + count + "\n");
+					writer.write( cle + ": " + count + "\n");
 				}
 				writer.close();	
 			}catch(IOException e){
